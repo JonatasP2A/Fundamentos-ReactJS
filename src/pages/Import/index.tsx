@@ -27,13 +27,9 @@ const Import: React.FC = () => {
     uploadedFiles.map(file => data.append('file', file.file));
 
     try {
-      const values = data.getAll('file');
-      for (const value of values) {
-        await api.post('transactions/import', value);
-        data.delete('file');
-      }
-      setUploadedFiles([]);
+      await api.post('transactions/import', data);
       history.push('/');
+      setUploadedFiles([]);
     } catch (err) {
       console.log(err.response.error);
     }

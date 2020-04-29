@@ -48,9 +48,9 @@ const Dashboard: React.FC = () => {
 
       setTransactions(respTransactions.data.transactions);
       setBalance({
-        income: formatValue(parseFloat(respTransactions.data.balance.income)),
-        outcome: formatValue(parseFloat(respTransactions.data.balance.outcome)),
-        total: formatValue(parseFloat(respTransactions.data.balance.total)),
+        income: formatValue(respTransactions.data.balance.income),
+        outcome: formatValue(respTransactions.data.balance.outcome),
+        total: formatValue(respTransactions.data.balance.total),
       });
     }
 
@@ -101,8 +101,10 @@ const Dashboard: React.FC = () => {
                 <tr key={transaction.id}>
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>
-                    {transaction.type === 'outcome' && '-'}
-                    {transaction.value}
+                    {transaction.type === 'outcome' &&
+                      `- ${transaction.formattedValue}`}
+                    {transaction.type === 'income' &&
+                      transaction.formattedValue}
                   </td>
                   <td>{transaction.category.title}</td>
                   <td>{transaction.formattedDate}</td>
